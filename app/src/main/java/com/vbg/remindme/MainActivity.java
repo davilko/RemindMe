@@ -3,8 +3,13 @@ package com.vbg.remindme;
 
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,11 +17,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
 
+import com.vbg.remindme.adapter.TabsPagesFragmentAdapter;
+
 public class MainActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+    TabLayout tabLayout;
+    ViewPager viewPager;
 
 
     @Override
@@ -25,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initToolbar();
         initNavigationView();
+        initTab();
     }
 
     private void initToolbar()
@@ -42,11 +52,42 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    private void initTab() {
+        tabLayout = (TabLayout) findViewById(R.id.tab);
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+
+
+
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
+        final TabsPagesFragmentAdapter adapter = new TabsPagesFragmentAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+    }
+
     private void initNavigationView() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.navigation);
-
         navigationView.inflateMenu(R.menu.navigation_menu);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout,toolbar, R.string.open, R.string.close);
+        drawerLayout.setDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                drawerLayout.closeDrawers();
+                switch (item.getItemId()){
+                    case R.id.notification: showNotificationTab();
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
 
@@ -62,13 +103,17 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                drawerLayout.openDrawer(GravityCompat.START);
+                    showNotificationTab();
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    private void showNotificationTab()
+    {
+        viewPager.setCurrentItem(1);
+    }
 
 
 }

@@ -6,4 +6,6 @@
     <string name="folder">Архив</string>
     <string name="settings">Настройки</string>
     <string name="information">Справка</string>
+    <string name="close">Закрыть</string>
+    <string name="open">Открыть</string>
 </resources>

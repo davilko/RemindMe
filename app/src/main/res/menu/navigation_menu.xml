@@ -3,7 +3,8 @@
     <group android:checkableBehavior="single">
         <item
             android:icon="@drawable/ic_chat_black_24dp"
-            android:title="@string/notification" />
+            android:title="@string/notification"
+            android:id="@+id/notification"/>
         <item
             android:icon="@drawable/ic_star_black_24dp"
             android:title="@string/liked" />
