@@ -23,9 +23,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         initToolbar();
+        initNavigationView();
     }
 
     private void initToolbar()
@@ -41,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
+    }
+
+    private void initNavigationView() {
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.navigation);
+
+        navigationView.inflateMenu(R.menu.navigation_menu);
     }
 
 

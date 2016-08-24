@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Remind Me</string>
     <string name="search_title">Search</string>
+    <string name="notification">Напоминание</string>
+    <string name="liked">Избранное</string>
+    <string name="folder">Архив</string>
+    <string name="settings">Настройки</string>
+    <string name="information">Справка</string>
 </resources>
