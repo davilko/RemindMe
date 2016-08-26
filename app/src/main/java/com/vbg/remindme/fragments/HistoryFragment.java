@@ -10,24 +10,22 @@ import android.view.ViewGroup;
 import com.vbg.remindme.R;
 
 /**
- * Created by bo0mka on 24.08.16.
+ * Created by bo0mka on 26.08.16.
  */
-public class ExampleFragment extends Fragment {
-    private  View view;
+public class HistoryFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_example, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_example, container, false);
     }
 
-    public static ExampleFragment  getInstance()
-    {
+    public static HistoryFragment newInstance() {
+        HistoryFragment myFragment = new HistoryFragment();
+
         Bundle args = new Bundle();
-        ExampleFragment fragment = new ExampleFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
+        myFragment.setArguments(args);
 
+        return myFragment;
+    }
 }

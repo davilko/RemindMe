@@ -1,6 +1,7 @@
 package com.vbg.remindme;
 
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -23,11 +24,12 @@ import com.vbg.remindme.adapter.TabsPagesFragmentAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    TabLayout tabLayout;
-    ViewPager viewPager;
+    private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+
 
 
     @Override
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        FloatingActionButton actionButton = (FloatingActionButton) findViewById(R.id.f_btn);
         setSupportActionBar(toolbar);
 
     }
@@ -62,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
-        final TabsPagesFragmentAdapter adapter = new TabsPagesFragmentAdapter(getSupportFragmentManager());
+        final TabsPagesFragmentAdapter adapter = new TabsPagesFragmentAdapter(getSupportFragmentManager(), getApplicationContext());
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
