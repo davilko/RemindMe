@@ -1,6 +1,7 @@
 package com.vbg.remindme;
 
 
+import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -21,6 +22,13 @@ import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
 
 import com.vbg.remindme.adapter.TabsPagesFragmentAdapter;
+import com.vbg.remindme.dto.RemindDTO;
+
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private  TabsPagesFragmentAdapter adapter;
 
 
 
@@ -62,10 +71,10 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tab);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
-
+        new RemindMeTask().execute();
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
-        final TabsPagesFragmentAdapter adapter = new TabsPagesFragmentAdapter(getSupportFragmentManager(), getApplicationContext());
+         adapter = new TabsPagesFragmentAdapter(getSupportFragmentManager(), getApplicationContext());
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -121,4 +130,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private class RemindMeTask extends AsyncTask<Void, Void, RemindDTO>
+    {
+
+        @Override
+        protected RemindDTO doInBackground(Void... params) {
+            RestTemplate template = new RestTemplate();
+            template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
+           return template.getForObject(URL.GET_REMIND_ITEM, RemindDTO.class);
+        }
+
+        @Override
+        protected void onPostExecute(RemindDTO remindDTO) {
+            List<RemindDTO> list = new ArrayList<>();
+            list.add(remindDTO);
+            adapter.setData(list);
+        }
+    }
 }
